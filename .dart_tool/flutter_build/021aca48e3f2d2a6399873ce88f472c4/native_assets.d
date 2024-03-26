@@ -1,0 +1,1 @@
+ C:\\Users\\Roni\ Pereira\\Documents\\1_Truco\\teste_cartas\\.dart_tool\\flutter_build\\021aca48e3f2d2a6399873ce88f472c4\\native_assets.yaml: 
