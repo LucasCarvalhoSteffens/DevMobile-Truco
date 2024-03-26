@@ -1,4 +1,4 @@
-# teste_cartas
+# Truco
 
 A new Flutter project.
 
