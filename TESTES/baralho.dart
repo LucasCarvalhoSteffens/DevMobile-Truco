@@ -1,4 +1,4 @@
-import 'valorCarta.dart';
+import 'carta.dart';
 
 
 class Baralho {
@@ -23,30 +23,28 @@ class Baralho {
   }
 
   
+  //Define quais são as manilhas REAIS
   List<Carta> definirManilhaReal(Carta cartaVirada) {
-  int valorManilhaVirada = cartaVirada.valorToInt();
-  int valorProximaManilha = (valorManilhaVirada + 1) % 11;
+    int valorManilhaVirada = cartaVirada.valorToInt();
+    int valorProximaManilha = (valorManilhaVirada + 1) % 11;
 
-  if (valorManilhaVirada == 10) {
-    valorProximaManilha = 1;
-  }
+    if (valorManilhaVirada == 10) {
+      valorProximaManilha = 1;
+    }
 
-  List<Carta> manilhasReais = [];
+    List<Carta> manilhasReais = [];
 
-  for (var valor in valores) {
-    for (var naipe in naipes) {
-      var cartaPossivel = Carta(valor, naipe);
-      if (cartaPossivel.valorToInt() == valorProximaManilha) {
-        manilhasReais.add(cartaPossivel);
-        // Atribuir pontos de manilha à carta
-        cartaPossivel.atribuirPontosManilha(manilhasReais);
+    for (var valor in valores) {
+      for (var naipe in naipes) {
+        var cartaPossivel = Carta(valor, naipe);
+        if (cartaPossivel.valorToInt() == valorProximaManilha) {
+          manilhasReais.add(cartaPossivel);
+        }
       }
     }
+
+    return manilhasReais;
   }
-
-  return manilhasReais;
-}
-
 
   // Distruibui as carta, e garante que as cartas distribuidas seja retiradas do baralho
   List<Carta> distribuirCartas(int quantidade) {
@@ -77,6 +75,14 @@ List<List<Carta>> distribuirCartasParaJogadores(int numeroJogadores, Baralho bar
   return todasMaosJogadores;
 }
 
+//Verifica quais cartas dos jogadores são manilhas e atribui pontos
+  void verificarManilha(List<List<Carta>> maosJogadores, List<Carta> manilhasReais) {
+    for (var maosJogador in maosJogadores) {
+      for (var carta in maosJogador) {
+        carta.atribuirPontosManilha(manilhasReais);
+      }
+    }
+  }
 }
 
 

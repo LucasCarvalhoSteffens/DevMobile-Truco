@@ -1,21 +1,6 @@
-import 'carta.dart';
+import 'valorCarta.dart';
 import 'dart:io';
 
-// Função para mostrar os valores das cartas da mão dos jogadores
-void mostrarValoresCartas(List<List<Carta>> maosJogadores) {
-  for (var i = 0; i < maosJogadores.length; i++) {
-    print('\nCartas na mão do Jogador ${i + 1}:');
-    for (var carta in maosJogadores[i]) {
-      // Valor da carta considerando a manilha
-      int valorCarta = carta.valorToInt();
-      String marcador = carta.ehManilha ? ' (M)' : ''; // Adiciona "(M)" se for manilha
-      if (carta.ehManilha) {
-        valorCarta = carta.valorManilha;
-      }
-      print('$carta - Valor: $valorCarta$marcador');
-    }
-  }
-}
 
 //Interage com o jogador para obter a quantidade de jogadores
 int obterNumeroJogadores() {
