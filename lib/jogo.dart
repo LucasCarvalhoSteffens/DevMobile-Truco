@@ -136,13 +136,42 @@ class ResultadoRodada {
   ResultadoRodada(this.numeroRodada, this.jogadorVencedor);
 }
 
-String determinarVencedor(List<ResultadoRodada> resultadosRodadas) {
+bool empatouRodada(int rodada) {
+  return resultadosRodadas[rodada].jogadorVencedor == null;
+}
+
+Jogador vencedor(int rodada) {
+  return resultadosRodadas[rodada].jogadorVencedor!;
+}
+
+Jogador determinarVencedor(List<ResultadoRodada> resultadosRodadas) {
+
   // Verifica se houve pelo menos duas rodadas
   if (resultadosRodadas.length >= 2) {
     // Verifica se o jogador venceu a segunda rodada, mas não a primeira
-    if (resultadosRodadas[0].jogadorVencedor == null && resultadosRodadas[1].jogadorVencedor != null) {
-      return "O jogador ${resultadosRodadas[1].jogadorVencedor!.nome} ganhou a segunda rodada e é o vencedor!";
+    if (empatouRodada(0)) {
+      if (empatouRodada(1)) {
+        if (empatouRodada(2)) {
+          // ganha o pé
+        }
+        // ganha o vencedor da 2
+      }
+      // ganha o vencedor da 1
     } 
+    if (empatouRodada(1)) {
+      // GANHA O vencedor da 0
+    }
+    if (vencedor(0) != vencedor(1)) {
+      if (empatouRodada(2)) {
+        // ganha o vencedor da 0
+      }
+      // ganha quem venceu 2 contando as 3
+    }
+    // ganha o vencedor da 0 e 1
+
+
+
+      // return "O jogador ${resultadosRodadas[1].jogadorVencedor!.nome} ganhou a segunda rodada e é o vencedor!";
     // Verifica se o jogador venceu a primeira rodada, mas não a segunda
     else if (resultadosRodadas[0].jogadorVencedor != null && resultadosRodadas[1].jogadorVencedor == null) {
       return "O jogador ${resultadosRodadas[0].jogadorVencedor!.nome} ganhou a primeira rodada e é o vencedor!";
@@ -154,14 +183,14 @@ String determinarVencedor(List<ResultadoRodada> resultadosRodadas) {
   }
 
   // Verifica se houve pelo menos três rodadas
-  if (resultadosRodadas.length >= 3) {
+  //if (resultadosRodadas.length >= 3) {
     // Verifica se nenhum jogador venceu as duas primeiras rodadas, mas venceu a terceira
-    if (resultadosRodadas[0].jogadorVencedor == null &&
-        resultadosRodadas[1].jogadorVencedor == null &&
-        resultadosRodadas[2].jogadorVencedor != null) {
-      return "O jogador ${resultadosRodadas[2].jogadorVencedor!.nome} ganhou a terceira rodada e é o vencedor!";
-    }
+  if (resultadosRodadas[0].jogadorVencedor == null &&
+      resultadosRodadas[1].jogadorVencedor == null &&
+      resultadosRodadas[2].jogadorVencedor != null) {
+    return "O jogador ${resultadosRodadas[2].jogadorVencedor!.nome} ganhou a terceira rodada e é o vencedor!";
   }
+  //}
 
   // Verifica se houve um vencedor na última rodada
   Jogador? jogadorVencedorUltimaRodada = resultadosRodadas.last.jogadorVencedor;
