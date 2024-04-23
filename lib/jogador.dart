@@ -11,11 +11,12 @@ class Jogador {
   Jogador(this.nome);
 
   Map<String, dynamic>? obterCartaDaMao() {
-    if (mao.isEmpty) {
-      print('A mão de $nome está vazia!');
-      return null;
-    }
+  if (mao.isEmpty) {
+    print('A mão de $nome está vazia!');
+    return null;
+  }
 
+  while (true) {
     print('\nCartas na mão do $nome:');
     for (var i = 0; i < mao.length; i++) {
       if (!indicesSelecionados.contains(i)) {
@@ -26,11 +27,23 @@ class Jogador {
     }
 
     stdout.write('$nome, escolha a carta que deseja jogar (índice): ');
-    int indice = int.parse(stdin.readLineSync()!);
+    String? input = stdin.readLineSync();
+    if (input == null) {
+      print('Entrada inválida. Tente novamente.');
+      continue;
+    }
+
+    int indice;
+    try {
+      indice = int.parse(input);
+    } catch (e) {
+      print('Entrada inválida. Tente novamente.');
+      continue;
+    }
 
     if (indice < 1 || indice > mao.length || indicesSelecionados.contains(indice - 1)) {
       print('Índice inválido ou carta já jogada! Escolha um índice válido.');
-      return null;
+      continue;
     }
 
     indicesSelecionados.add(indice - 1);
@@ -42,6 +55,8 @@ class Jogador {
       'valor': valorCarta,
     };
   }
+}
+
 
   void jogarCarta(List<Carta> mesa, Carta carta) {
     mesa.add(carta);
