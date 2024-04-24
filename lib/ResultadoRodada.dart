@@ -18,7 +18,15 @@ Jogador? vencedor(ResultadoRodada resultado) {
   return resultado.jogadorVencedor;
 }
 
-Jogador? determinarVencedor(resultadosRodadas) {
+Jogador? determinarVencedor(List<ResultadoRodada> resultadosRodadas) {
+  // Verifica se há pelo menos três rodadas
+  if (resultadosRodadas.length >= 3) {
+    // Verifica se o jogador venceu a primeira e a terceira rodadas
+    if (vencedor(resultadosRodadas[0]) == vencedor(resultadosRodadas[2])) {
+      return vencedor(resultadosRodadas[0]);
+    }
+  }
+
   // Verifica se há pelo menos duas rodadas
   if (resultadosRodadas.length >= 2) {
     // Verifica se o jogador empatou na primeira rodada e ganhou na segunda
@@ -36,16 +44,10 @@ Jogador? determinarVencedor(resultadosRodadas) {
         return vencedor(resultadosRodadas[0]);
       } else if (vencedor(resultadosRodadas[0]) != vencedor(resultadosRodadas[1])) {
         // Se houver um vencedor diferente em cada rodada
-        // Verifica se o mesmo jogador venceu pelo menos duas rodadas
-        var contadorVitorias = 1;
+        // Verifica se o mesmo jogador venceu pelo menos duas rodadas consecutivas
         for (var i = 2; i < resultadosRodadas.length; i++) {
-          if (vencedor(resultadosRodadas[i]) == vencedor(resultadosRodadas[i - 1])) {
-            contadorVitorias++;
-          } else {
-            contadorVitorias = 1;
-          }
-          // Se o jogador venceu pelo menos duas rodadas
-          if (contadorVitorias >= 2) {
+          if (vencedor(resultadosRodadas[i - 1]) == vencedor(resultadosRodadas[i])) {
+            // Se o jogador venceu pelo menos duas rodadas consecutivas
             return vencedor(resultadosRodadas[i]);
           }
         }
@@ -63,3 +65,4 @@ Jogador? determinarVencedor(resultadosRodadas) {
   // Retorna null
   return null;
 }
+

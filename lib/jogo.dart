@@ -83,7 +83,7 @@ class Jogo {
 
     // Incrementa o número da rodada para a próxima iteração
     numeroRodada++;
+    }
   }
-}
 
 }
