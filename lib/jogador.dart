@@ -76,7 +76,6 @@ class Jogador {
   }
 
   int getPontuacaoTotal() {
-    print('\r\nPontuação total: $pontuacaoTotal');
     return pontuacaoTotal;
   }
 

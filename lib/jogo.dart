@@ -75,7 +75,13 @@ class Jogo {
     // Determinar o vencedor do jogo até a rodada atual
     Jogador? vencedorJogo = determinarVencedor(resultadosRodadas);
     if (vencedorJogo != null) {
-      print('O vencedor do jogo é: ${vencedorJogo.nome}');
+      print('\n\rO vencedor do jogo é: ${vencedorJogo.nome}');
+      vencedorJogo.adicionarPontuacaoTotal();
+      for (var jogador in jogadores) {
+        int pontuacaoTotal = jogador.getPontuacaoTotal();
+        print('\n\rPontuação total de ${jogador.nome}: $pontuacaoTotal');
+      }
+
       return vencedorJogo.nome;
     } else {
       print('O jogo continua!');
