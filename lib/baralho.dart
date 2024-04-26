@@ -58,6 +58,7 @@ class Baralho {
       }
       cartasDistribuidas.add(_cartas.removeAt(0));
     }
+    //print(cartasDistribuidas);
     return cartasDistribuidas;
   }
 
@@ -68,7 +69,6 @@ class Baralho {
 // Função para distribuir cartas para um número especificado de jogadores
 List<List<Carta>> distribuirCartasParaJogadores(int numeroJogadores, Baralho baralho) {
   List<List<Carta>> todasMaosJogadores = [];
-
   for (var i = 0; i < numeroJogadores; i++) {
     List<Carta> maoJogador = baralho.distribuirCartas(3);
     todasMaosJogadores.add(maoJogador);

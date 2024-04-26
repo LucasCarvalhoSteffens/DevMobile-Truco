@@ -2,6 +2,7 @@ import 'valorCarta.dart';
 import 'dart:io';
 
 
+
 //Interage com o jogador para obter a quantidade de jogadores
 int obterNumeroJogadores() {
   int? numeroJogadores;

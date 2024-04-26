@@ -1,5 +1,6 @@
 import 'jogo.dart';
 import 'jogador.dart';
+import 'dart:io';
 
 class ResultadoRodada {
   final int numeroRodada;
@@ -19,6 +20,7 @@ Jogador? vencedor(ResultadoRodada resultado) {
 }
 
 Jogador? determinarVencedor(List<ResultadoRodada> resultadosRodadas) {
+  print('determinarVencedor');
   // Verifica se há pelo menos três rodadas
   if (resultadosRodadas.length >= 3) {
     // Verifica se o jogador venceu a primeira e a terceira rodadas
