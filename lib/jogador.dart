@@ -7,10 +7,9 @@ class Jogador {
   List<int> indicesSelecionados = [];
   int pontos = 0;
   int pontuacaoTotal = 0;
-  int grupo;
-  late List<List<Jogador>> gruposDeJogadores;
 
-  Jogador(this.nome, this.grupo);
+
+  Jogador(this.nome);
 
   Map<String, dynamic>? obterCartaDaMao() {
     if (mao.isEmpty) {
