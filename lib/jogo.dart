@@ -135,14 +135,14 @@ class Jogo {
       if (infoCarta != null) {
         Carta cartaJogada = infoCarta['carta'];
         jogador.jogarCarta(mesa, cartaJogada);
-        cartasJogadasNaMesa.add(Tuple2(jogador, infoCarta));
+        cartasJogadasNaMesa.add(Tuple2<Jogador, Map<String, dynamic>>(jogador, infoCarta));
       }
     }
 
     // Verifica se houve empate
     Jogador? jogadorVencedor = compararCartas(cartasJogadasNaMesa);
     if (jogadorVencedor != null) {
-      print('\n\r${jogadorVencedor.nome} ganhou a rodada!');
+      print('\n\r${jogadorVencedor.nome}, do grupo ${jogadorVencedor.grupo}, ganhou a rodada!');
     } else {
       print('\n\rEmpate! Ninguém ganhou a rodada $numeroRodada.');
     }
@@ -183,7 +183,7 @@ class Jogo {
         }
       }else {
         // Se não houve vencedor do jogo
-        print('O jogo continua!');
+        print('\n\rO jogo continua!');
       }
 
       // Incrementa o número da rodada para a próxima iteração

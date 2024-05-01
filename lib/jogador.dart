@@ -7,9 +7,9 @@ class Jogador {
   List<int> indicesSelecionados = [];
   int pontos = 0;
   int pontuacaoTotal = 0;
+  int grupo;
 
-
-  Jogador(this.nome);
+  Jogador(this.nome, this.grupo);
 
   Map<String, dynamic>? obterCartaDaMao() {
     if (mao.isEmpty) {
@@ -26,7 +26,11 @@ class Jogador {
         }
     }
 
-    stdout.write('$nome, escolha a carta que deseja jogar (índice): ');
+    return selecionarCarta();
+}
+
+Map<String, dynamic>? selecionarCarta() {
+    stdout.write('$nome, do Grupo: $grupo a carta que deseja jogar (índice): ');
     String? input = stdin.readLineSync();
     if (input == null) {
         print('Entrada inválida. Tente novamente.');
@@ -37,7 +41,6 @@ class Jogador {
     if (input.toUpperCase() == 'T') {
       return {'truco': true};
     }
-
 
     int indice;
     try {
@@ -61,6 +64,7 @@ class Jogador {
         'valor': valorCarta,
     };
 }
+
 
   // Método para limpar a lista de índices das cartas selecionadas
   void limparIndicesSelecionados() {
