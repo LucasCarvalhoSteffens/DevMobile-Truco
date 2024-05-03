@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'valorCarta.dart';
+import 'pedirTruco.dart';
 
 class Jogador {
   late String nome;
@@ -34,10 +35,13 @@ class Jogador {
         return null;
     }
 
-    // T para pedir truco
-    if (input.toUpperCase() == 'T') {
-      return {'truco': true};
-    }
+    // // T para pedir truco
+    // if (input.toUpperCase() == 'T') {
+    //   // Aqui você instancia a classe Truco e chama o método pedirTruco
+    //   Truco truco = Truco();
+    //   truco.pedirTruco(this, gruposDeJogadores[grupo][1 - grupo]);
+    //   return null; // Como o jogador está pedindo truco, não retorna uma carta selecionada
+    // }
 
 
     int indice;
@@ -100,6 +104,12 @@ class Jogador {
     stdout.write('Opção: ');
     String? escolha = stdin.readLineSync();
     return escolha;
+  }
+
+  bool responderTruco(Jogador jogadorQuePediuTruco, int pontosTruco) {
+    print('${jogadorQuePediuTruco.nome} pediu truco! Você aceita? (S/N)');
+    String? resposta = stdin.readLineSync()?.toUpperCase();
+    return resposta == 'S';
   }
 
 }

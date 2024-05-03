@@ -168,34 +168,19 @@ String? iniciarJogo(List<Jogador> jogadores, int numeroJogadores, int numeroGrup
     // Lista para armazenar as cartas jogadas na mesa
     List<Tuple2<Jogador, Map<String, dynamic>>> cartasJogadasNaMesa = [];
 
+    // Loop para que cada jogador jogue uma carta
     for (var jogador in jogadores) {
-      Map<String, dynamic>? infoCarta;
+      // Verifica se o jogador ainda tem cartas para jogar
+      Map<String, dynamic>? infoCarta = jogador.obterCartaDaMao();
 
-      while (infoCarta == null) {
-        infoCarta = jogador.obterCartaDaMao();
-
-        if (infoCarta != null) {
-          if (infoCarta.containsKey('carta')) {
-            // ...
-          } else if (infoCarta.containsKey('truco')) {
-            print('${jogador.nome} pediu truco!');
-
-            int indexJogadorAtual = jogadores.indexOf(jogador);
-            int indexProximoGrupo = (indexJogadorAtual ~/ numeroGrupos) % numeroGrupos;
-            List<Jogador> outroGrupo = gruposDeJogadores[indexProximoGrupo];
-
-            bool aceitouTruco = processarTruco(jogador, outroGrupo);
-
-            if (aceitouTruco) {
-              print('O truco foi aceito! O jogo continua.');
-            } else {
-              print('O truco foi recusado. O jogo acabou!');
-              jogoContinua = false;
-              break;
-            }
-          }
-        }
+      if (infoCarta != null) {
+        Carta cartaJogada = infoCarta['carta'] as Carta; // Convertendo para tipo Carta
+        jogador.jogarCarta(mesa, cartaJogada);
+        cartasJogadasNaMesa.add(Tuple2<Jogador, Map<String, dynamic>>(jogador, infoCarta));
       }
+    }
+  
+
      
       if (!jogoContinua) {
         break;
@@ -218,31 +203,31 @@ String? iniciarJogo(List<Jogador> jogadores, int numeroJogadores, int numeroGrup
       if (vencedorJogo != null) {
         print('\n\rO vencedor do jogo é: ${vencedorJogo.nome}');
         vencedorJogo.adicionarPontuacaoTotal();
-      }    
-      
-      for (var jogador in jogadores) {
-        int pontuacaoTotal = jogador.getPontuacaoTotal();
-        print('\n\rPontuação total de ${jogador.nome}: $pontuacaoTotal');
         
-        // Verifica se algum jogador atingiu a pontuação total desejada
-        if (pontuacaoTotal >= 2) {
-          // Encerra o jogo
-          print('\nO jogador ${jogador.nome} atingiu a pontuação máxima de 2 pontos e ganhou o jogo!');
-          jogoContinua = false;
-          break; // Sai do loop, já que o jogo será encerrado
+      
+        for (var jogador in jogadores) {
+          int pontuacaoTotal = jogador.getPontuacaoTotal();
+          print('\n\rPontuação total de ${jogador.nome}: $pontuacaoTotal');
+          
+          // Verifica se algum jogador atingiu a pontuação total desejada
+          if (pontuacaoTotal >= 2) {
+            // Encerra o jogo
+            print('\nO jogador ${jogador.nome} atingiu a pontuação máxima de 2 pontos e ganhou o jogo!');
+            jogoContinua = false;
+            break; // Sai do loop, já que o jogo será encerrado
+          }
+        }
+
+
+        // Se o jogo foi encerrado, não precisa perguntar ao usuário se deseja continuar
+        if (jogoContinua) {
+          // Chama o método para iniciar a próxima rodada
+          Baralho baralho = Baralho();
+          iniciarProximaRodada(jogadores, baralho, numeroJogadores, resultadosRodadas);
         }
       }
+        // Incrementa o número da rodada para a próxima iteração
+        numeroRodada++;
+      }
     }
-
-    // Se o jogo foi encerrado, não precisa perguntar ao usuário se deseja continuar
-    if (jogoContinua) {
-      // Chama o método para iniciar a próxima rodada
-      Baralho baralho = Baralho();
-      iniciarProximaRodada(jogadores, baralho, numeroJogadores, resultadosRodadas);
-    }
-
-    // Incrementa o número da rodada para a próxima iteração
-    numeroRodada++;
-  }
-}
 }

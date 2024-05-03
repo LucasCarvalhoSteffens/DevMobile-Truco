@@ -57,7 +57,6 @@ Jogador? determinarVencedor(List<ResultadoRodada> resultadosRodadas) {
         return null;
       } else {
         // Se o mesmo jogador venceu as duas rodadas
-        // Retorna o vencedor da primeira rodada
         return vencedor(resultadosRodadas[0]);
       }
     }
