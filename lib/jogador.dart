@@ -1,3 +1,4 @@
+import 'package:tuple/tuple.dart';
 import 'dart:io';
 import 'valorCarta.dart';
 import 'pedirTruco.dart';
@@ -12,7 +13,7 @@ class Jogador {
 
   Jogador(this.nome, this.grupo);
 
-  Map<String, dynamic>? obterCartaDaMao() {
+  void obterCartaDaMao() {
     if (mao.isEmpty) {
         print('A mão de $nome está vazia!');
         return null;
@@ -26,49 +27,91 @@ class Jogador {
             print('${i + 1} ${carta} - Valor: $valor${carta.ehManilha ? ' (M)' : ''}');
         }
     }
+  }
 
-    return selecionarCarta();
+  Tuple3<Jogador, Jogador?, int>? acaoDoJogador(Jogador jogador, List<Jogador> jogadores) {
+  stdout.write('O jogador ${jogador.nome}, do Grupo: ${jogador.grupo} escolha a carta que deseja jogar (índice), ou "T" para pedir truco: ');
+  String? input = stdin.readLineSync();
+  
+  if (input == null) {
+    print('Entrada inválida. Tente novamente.');
+    return null;
+  }
+
+  if (input.toUpperCase() == 'T') {
+    return pedirTruco(jogador, jogadores);
+  }
+
+  int indice;
+  try {
+    indice = int.parse(input);
+  } catch (e) {
+    print('Entrada inválida. Tente novamente.');
+    return null;
+  }
+
+  if (indice >= 1 && indice <= 3) {
+    var resultadoSelecionarCarta = selecionarCarta(jogador, jogadores);
+    if (resultadoSelecionarCarta != null) {
+      var cartaSelecionada = resultadoSelecionarCarta.item1;
+      var jogadorQueAceitouTruco = resultadoSelecionarCarta.item2;
+      var pontosTruco = resultadoSelecionarCarta.item3;
+      
+      // Aqui você pode fazer o que precisar com a carta selecionada e suas informações
+    }
+    return resultadoSelecionarCarta;
+  } else {
+    print('Opção inválida. Tente novamente.');
+    return null;
+  }
 }
 
-Map<String, dynamic>? selecionarCarta() {
-    stdout.write('$nome, do Grupo: $grupo a carta que deseja jogar (índice): ');
-    String? input = stdin.readLineSync();
-    if (input == null) {
-        print('Entrada inválida. Tente novamente.');
-        return null;
-    }
 
-    // // T para pedir truco
-    // if (input.toUpperCase() == 'T') {
-    //   // Aqui você instancia a classe Truco e chama o método pedirTruco
-    //   Truco truco = Truco();
-    //   truco.pedirTruco(this, gruposDeJogadores[grupo][1 - grupo]);
-    //   return null; // Como o jogador está pedindo truco, não retorna uma carta selecionada
-    // }
 
-    int indice;
-    try {
-        indice = int.parse(input);
-    } catch (e) {
-        print('Entrada inválida. Tente novamente.');
-        return null;
-    }
 
-    if (indice < 1 || indice > mao.length || indicesSelecionados.contains(indice - 1)) {
-        print('Índice inválido ou carta já jogada! Escolha um índice válido.');
-        return null;
-    }
+Tuple3<Jogador, Jogador?, int>? selecionarCarta(Jogador jogador, List<Jogador> jogadores) {
+  stdout.write('O jogador ${jogador.nome}, do Grupo: ${jogador.grupo} escolha a carta que deseja jogar (índice): ');
+  String? input = stdin.readLineSync();
+  if (input == null) {
+    print('Entrada inválida. Tente novamente.');
+    return null;
+  }
 
-    indicesSelecionados.add(indice - 1);
-    var cartaSelecionada = mao[indice - 1];
-    var valorCarta = cartaSelecionada.ehManilha ? cartaSelecionada.valorManilha : cartaSelecionada.valorToInt();
+  int indice;
+  try {
+    indice = int.parse(input);
+  } catch (e) {
+    print('Entrada inválida. Tente novamente.');
+    return null;
+  }
 
-    return {
-        'carta': cartaSelecionada,
-        'valor': valorCarta,
-    };
+  if (indice < 1 || indice > jogador.mao.length || jogador.indicesSelecionados.contains(indice - 1)) {
+    print('Índice inválido ou carta já jogada! Escolha um índice válido.');
+    return null;
+  }
+
+  jogador.indicesSelecionados.add(indice - 1);
+  var cartaSelecionada = jogador.mao[indice - 1];
+  var valorCarta = cartaSelecionada.ehManilha ? cartaSelecionada.valorManilha : cartaSelecionada.valorToInt();
+
+  // Retorna todas as informações necessárias
+  return Tuple3<Jogador, Jogador?, int>(jogador, null, 0);
 }
 
+Tuple3<Jogador, Jogador?, int>? pedirTruco(Jogador jogador, List<Jogador> jogadores) {
+  // Determina qual jogador está pedindo truco e qual está respondendo
+  Jogador jogadorQuePediuTruco = jogador;
+  Jogador jogadorQueRespondeTruco = jogadores.firstWhere((element) => element != jogadorQuePediuTruco);
+
+  // Cria uma instância da classe Truco e chama o método pedirTruco
+  Truco truco = Truco();
+  truco.pedirTruco(jogadorQuePediuTruco, jogadorQueRespondeTruco, jogadores);
+    
+  // Retorna nulo porque o jogador está pedindo truco, não selecionando uma carta
+  return null;
+}
+
+  
 
   // Método para limpar a lista de índices das cartas selecionadas
   void limparIndicesSelecionados() {
@@ -88,8 +131,9 @@ Map<String, dynamic>? selecionarCarta() {
     return pontos;
   }
 
-  void adicionarPontuacaoTotal() {
-    pontuacaoTotal++;
+  void adicionarPontuacaoTotal(int pontosTruco) {
+    pontuacaoTotal += pontosTruco;
+    print('pontuacaoTotal = $pontuacaoTotal');
   }
 
   int getPontuacaoTotal() {
@@ -109,7 +153,7 @@ Map<String, dynamic>? selecionarCarta() {
     return escolha;
   }
 
-  bool responderTruco(Jogador jogadorQuePediuTruco, int pontosTruco) {
+   bool responderTruco(Jogador jogadorQuePediuTruco, int pontosTruco) {
     print('${jogadorQuePediuTruco.nome} pediu truco! Você aceita? (S/N)');
     String? resposta = stdin.readLineSync()?.toUpperCase();
     return resposta == 'S';

@@ -22,8 +22,13 @@ Jogador? vencedor(ResultadoRodada resultado) {
 Jogador? determinarVencedor(List<ResultadoRodada> resultadosRodadas) {
   // Verifica se há pelo menos três rodadas
   if (resultadosRodadas.length >= 3) {
+    // Verifica se as duas primeiras rodadas terminaram em empate
+    if (empatouRodada(resultadosRodadas[0]) && empatouRodada(resultadosRodadas[1])) {
+      // verifica o vencedor da terceira
+        return vencedor(resultadosRodadas[2]);
+    }
     // Verifica se o jogador venceu a primeira e a terceira rodadas
-    if (vencedor(resultadosRodadas[0]) == vencedor(resultadosRodadas[2])) {
+    else if (vencedor(resultadosRodadas[0]) == vencedor(resultadosRodadas[2])) {
       return vencedor(resultadosRodadas[0]);
     }
   }

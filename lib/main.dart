@@ -40,6 +40,6 @@ void main() {
   jogo.finalizarRodada(jogadores, baralho, numeroJogadores);
 
   // Chamando a função iniciarJogo
-  jogo.iniciarJogo(jogadores, numeroJogadores, numeroGrupos, gruposDeJogadores);
+  jogo.iniciarJogo(jogadores, numeroJogadores,  gruposDeJogadores);
   
 }
