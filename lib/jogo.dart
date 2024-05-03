@@ -110,66 +110,28 @@ class Jogo {
     resultadosRodadas.clear();
   }
 
-  bool responderTruco(Jogador jogadorQuePediuTruco, List<Jogador> outroJogador) {
-    // Pergunta ao jogador se ele aceita o truco
-    print('${outroJogador}, você aceita o truco? (S/N)');
-    String? resposta = stdin.readLineSync();
-    
-    // Verifica a resposta do jogador
-    if (resposta?.toUpperCase() == 'S') {
-      return true; // O jogador aceitou o truco
-    } else {
-      return false; // O jogador não aceitou o truco
-    }
-  }
 
-   // Método para processar a resposta ao truco
-  bool processarTruco(Jogador jogador, List<Jogador> outroGrupo) {
-    print('${jogador}, você aceita o truco? (S/N/A)');
-    String? resposta = stdin.readLineSync()?.toUpperCase();
-
-    switch (resposta) {
-      case 'S':
-        return true; // Aceitou o truco
-      case 'A':
-        return processarAumentoTruco(jogador, outroGrupo);
-      default:
-        return false; // Não aceitou o truco
-    }
-  }
-
-  // Método para processar o aumento do truco
-  bool processarAumentoTruco(Jogador jogador, List<Jogador> outroGrupo) {
-    if (jogador.getPontuacaoTotal() >= 6) {
-      print('${jogador}, você aceita o aumento para 9? (S/N)');
-      String? resposta = stdin.readLineSync()?.toUpperCase();
-      return resposta == 'S'; // Aceitou o aumento para 9
-    } else {
-      print('${jogador} pediu aumento para 6. Você aceita? (S/N)');
-      String? resposta = stdin.readLineSync()?.toUpperCase();
-      return resposta == 'S' && processarAumentoTruco(outroGrupo[0], [jogador]);
-    }
-  }
-
-String? iniciarJogo(List<Jogador> jogadores, int numeroJogadores, int numeroGrupos, List<List<Jogador>> gruposDeJogadores) {
+  String? iniciarJogo(List<Jogador> jogadores, int numeroJogadores) {
   bool jogoContinua = true;
   List<Carta> mesa = [];
   int numeroRodada = 1; 
-
-    bool algumJogadorAtingiuPontuacaoTotal = false;
+  bool algumJogadorAtingiuPontuacaoTotal = false;
 
   // Lista para armazenar os resultados das rodadas
   List<ResultadoRodada> resultadosRodadas = [];
-  int indexJogadorAtual = 0;
-  bool trucoAceito = false;
 
   // Loop principal para controlar o jogo
   while (jogoContinua) {
+
+
     // Lista para armazenar as cartas jogadas na mesa
     List<Tuple2<Jogador, Map<String, dynamic>>> cartasJogadasNaMesa = [];
 
     // Loop para que cada jogador jogue uma carta
+    // Loop para que cada jogador jogue uma carta
     for (var jogador in jogadores) {
+      // Verifica se o jogador ainda tem cartas para jogar
+      Map<String, dynamic>? infoCarta = jogador.obterCartaDaMao();
       // Verifica se o jogador ainda tem cartas para jogar
       Map<String, dynamic>? infoCarta = jogador.obterCartaDaMao();
 
@@ -198,8 +160,8 @@ String? iniciarJogo(List<Jogador> jogadores, int numeroJogadores, int numeroGrup
       // Adiciona o resultado da rodada atual à lista de resultados
       resultadosRodadas.add(ResultadoRodada(numeroRodada, jogadorVencedor));
 
-      // Determinar o vencedor do jogo até a rodada atual
-      Jogador? vencedorJogo = determinarVencedor(resultadosRodadas);
+    // Determinar o vencedor do jogo até a rodada atual
+    Jogador? vencedorJogo = determinarVencedor(resultadosRodadas);
       if (vencedorJogo != null) {
         print('\n\rO vencedor do jogo é: ${vencedorJogo.nome}');
         vencedorJogo.adicionarPontuacaoTotal();

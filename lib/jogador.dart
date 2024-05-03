@@ -9,7 +9,6 @@ class Jogador {
   int pontos = 0;
   int pontuacaoTotal = 0;
   int grupo;
-  late List<List<Jogador>> gruposDeJogadores;
 
   Jogador(this.nome, this.grupo);
 
@@ -28,7 +27,11 @@ class Jogador {
         }
     }
 
-    stdout.write('$nome, escolha a carta que deseja jogar (índice): ');
+    return selecionarCarta();
+}
+
+Map<String, dynamic>? selecionarCarta() {
+    stdout.write('$nome, do Grupo: $grupo a carta que deseja jogar (índice): ');
     String? input = stdin.readLineSync();
     if (input == null) {
         print('Entrada inválida. Tente novamente.');
@@ -42,7 +45,6 @@ class Jogador {
     //   truco.pedirTruco(this, gruposDeJogadores[grupo][1 - grupo]);
     //   return null; // Como o jogador está pedindo truco, não retorna uma carta selecionada
     // }
-
 
     int indice;
     try {
@@ -66,6 +68,7 @@ class Jogador {
         'valor': valorCarta,
     };
 }
+
 
   // Método para limpar a lista de índices das cartas selecionadas
   void limparIndicesSelecionados() {
