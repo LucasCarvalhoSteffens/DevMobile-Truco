@@ -115,112 +115,100 @@ class Jogo {
   }
 
 
-  String? iniciarJogo(List<Jogador> jogadores, int numeroJogadores, gruposDeJogadores) {
-    bool jogoContinua = true;
-    List<Carta> mesa = [];
-    int numeroRodada = 1;
-    bool algumJogadorAtingiuPontuacaoTotal = false;
-    // Lista para armazenar os resultados das rodadas
-    List<ResultadoRodada> resultadosRodadas = [];
-    int jogadorAtualIndex = 0;// Índice do jogador que está jogando atualmente
+ // Loop principal para controlar o jogo
+ String? iniciarJogo(List<Jogador> jogadores, int numeroJogadores, gruposDeJogadores) {
+  bool jogoContinua = true;
+  List<Carta> mesa = [];
+  int numeroRodada = 1;
+  bool algumJogadorAtingiuPontuacaoTotal = false;
+  List<ResultadoRodada> resultadosRodadas = [];
+  int jogadorAtualIndex = 0;
 
-    //Para mostrar o grupo de cada jogador.
-    for (int i = 0; i < jogadores.length; i++) {
-        //jogadores[i].mao = jogadores[i];
-        print('Grupo: ${jogadores[i].grupo} jogador ${jogadores[i].nome}');
-    }
+  while (jogoContinua) {
+    List<Tuple2<Jogador, Map<String, dynamic>>> cartasJogadasNaMesa = [];
 
-    // Loop principal para controlar o jogo
-    while (jogoContinua) {
-      // Lista para armazenar as cartas jogadas na mesa
-      List<Tuple2<Jogador, Map<String, dynamic>>> cartasJogadasNaMesa = [];
+    for (var i = 0; i < jogadores.length; i++) {
+      int jogadorIndex = (jogadorAtualIndex + i) % jogadores.length;
+      var jogador = jogadores[jogadorIndex];
 
-      // Loop para que cada jogador jogue uma carta
-      for (var i = 0; i < jogadores.length; i++) {
-          int jogadorIndex = (jogadorAtualIndex + i) % jogadores.length; // Calcula o índice real do jogador
-          var jogador = jogadores[jogadorIndex];
+      jogador.obterCartaDaMao();
 
-          // Verifica se o jogador ainda tem cartas para jogar
-          jogador.obterCartaDaMao();
+      Tuple3<Jogador, Jogador?, int>? infoAcao = jogador.acaoDoJogador(jogador, jogadores);
 
-          Map<String, dynamic>? infoCarta;
+      // Se houve uma ação do jogador (jogada ou pedido de truco)
+      if (infoAcao != null) {
+        // Se o jogador pediu truco e o truco não foi aceito, verifica se o outro jogador respondeu
+        if (infoAcao.item2 != null && !truco.trucoFoiAceito) {
+          // Lógica para tratar a resposta do outro jogador ao truco
+          // (já implementado anteriormente)
 
-          // Se o jogador atual for aquele que pediu o truco e o truco foi aceito,
-          // garantimos que ele jogue primeiro
-          if (jogador == truco.jogadorQuePediuTruco && truco.trucoFoiAceito) {
-              infoCarta = jogador.selecionarCarta( jogador, jogadores);
-          }
+        } else {
+          // Se não houve pedido de truco ou o truco foi aceito, adiciona a carta jogada à mesa
+          var cartaSelecionada = infoAcao.item1;
+          var valorCarta = infoAcao.item3; // Adicionando valor da carta
+          var jogadorQueAceitouTruco = infoAcao.item2;
+          var pontosTruco = infoAcao.item3;
+          cartasJogadasNaMesa.add(Tuple2<Jogador, Map<String, dynamic>>(jogador, {
+            'carta': cartaSelecionada,
+            'valor': valorCarta, // Passando o valor da carta
+            'jogadorQueAceitouTruco': jogadorQueAceitouTruco,
+            'pontosTruco': pontosTruco,
+          }));
 
-          // Se não for o jogador que pediu o truco ou se o truco não foi aceito ainda,
-          // ou se o jogador já jogou a carta na iteração anterior, permite que o jogador jogue normalmente
-          infoCarta ??= jogador.selecionarCarta(jogador, jogadores);
-
-          if (infoCarta != null) {
-              Carta cartaJogada = infoCarta['carta'] as Carta; // Convertendo para tipo Carta
-              jogador.jogarCarta(mesa, cartaJogada);
-              cartasJogadasNaMesa.add(Tuple2<Jogador, Map<String, dynamic>>(jogador, infoCarta));
-          }
-
-          // Se o jogador atual for aquele que pediu o truco e o truco foi aceito, encerre o loop
-          if (jogador == truco.jogadorQuePediuTruco && truco.trucoFoiAceito) {
-              break;
+          // Atualiza as informações do truco se o truco foi aceito
+          if (truco.trucoFoiAceito) {
+            truco.jogadorQuePediuTruco = jogador;
           }
         }
-
-
-      // Verificações e lógica após os jogadores jogarem...
-
-      // Atualiza o índice do jogador atual para o próximo jogador
-      jogadorAtualIndex = (jogadorAtualIndex + 1) % jogadores.length;
-
-      // Se o truco foi aceito e o jogador atual for aquele que pediu o truco, atualize o índice para que ele jogue novamente
-      if (truco.trucoFoiAceito && jogadores[jogadorAtualIndex] == truco.jogadorQuePediuTruco) {
-        continue;
       }
-  
-            
+    }
+
+    // Verificações e lógica após os jogadores jogarem...
+    // Atualiza o índice do jogador atual para o próximo jogador
+    jogadorAtualIndex = (jogadorAtualIndex + 1) % jogadores.length;
+
     // Verifica se houve empate
     Jogador? jogadorVencedor = compararCartas(cartasJogadasNaMesa);
-
+    print('jogadorVencedor: ${jogadorVencedor}');
     if (jogadorVencedor != null) {
+      
       print('\n\rGrupo ${jogadorVencedor.grupo} ganhou a rodada!');
     } else {
       print('\n\rEmpate! Ninguém ganhou a rodada $numeroRodada.');
     }
-    
+
     // Adiciona o resultado da rodada atual à lista de resultados
     resultadosRodadas.add(ResultadoRodada(numeroRodada, jogadorVencedor));
 
     // Determinar o vencedor do jogo até a rodada atual
     Jogador? vencedorJogo = determinarVencedor(resultadosRodadas);
-      if (vencedorJogo != null) {
-        print('\n\rO vencedor do jogo é: ${vencedorJogo.nome} e do grupo ${vencedorJogo.grupo}');
-        //vencedorJogo.adicionarPontuacaoTotal();
-        
+    if (vencedorJogo != null) {
+      print('\n\rO vencedor do jogo é: ${vencedorJogo.nome} e do grupo ${vencedorJogo.grupo}');
       
-        for (var jogador in jogadores) {
-          int pontuacaoTotal = jogador.getPontuacaoTotal();
-          print('\n\rPontuação total de ${jogador.nome}: $pontuacaoTotal');
-          
-          // Verifica se algum jogador atingiu a pontuação total desejada
-          if (pontuacaoTotal >= 2) {
-            // Encerra o jogo
-            print('\nO Grupo ${jogador.grupo} atingiu a pontuação máxima de 2 pontos e ganhou o jogo!');
-            jogoContinua = false;
-            break; // Sai do loop, já que o jogo será encerrado
-          }
-        }
-
-
-        // Se o jogo foi encerrado, não precisa perguntar ao usuário se deseja continuar
-        if (jogoContinua) {
-          // Chama o método para iniciar a próxima rodada
-          Baralho baralho = Baralho();
-          iniciarProximaRodada(jogadores, baralho, numeroJogadores, resultadosRodadas);
+      for (var jogador in jogadores) {
+        int pontuacaoTotal = jogador.getPontuacaoTotal();
+        print('\n\rPontuação total de ${jogador.nome}: $pontuacaoTotal');
+        
+        // Verifica se algum jogador atingiu a pontuação total desejada
+        if (pontuacaoTotal >= 2) {
+          // Encerra o jogo
+          print('\nO Grupo ${jogador.grupo} atingiu a pontuação máxima de 2 pontos e ganhou o jogo!');
+          jogoContinua = false;
+          break; // Sai do loop, já que o jogo será encerrado
         }
       }
-        // Incrementa o número da rodada para a próxima iteração
-        numeroRodada++;
+    
+      // Se o jogo foi encerrado, não precisa perguntar ao usuário se deseja continuar
+      if (jogoContinua) {
+        // Chama o método para iniciar a próxima rodada
+        Baralho baralho = Baralho();
+        iniciarProximaRodada(jogadores, baralho, numeroJogadores, resultadosRodadas);
       }
     }
+
+      // Incrementa o número da rodada para a próxima iteração
+      numeroRodada++;
+      }
+    }
+
 }
