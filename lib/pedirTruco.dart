@@ -32,6 +32,7 @@ class Truco {
     case '1':
       trucoFoiAceito = true;
       jogadorQueAceitouTruco = jogadorQueRespondeTruco;
+      jogadorPediutruco = jogadores.indexOf(jogadorQuePediuTruco);
       print('O truco foi aceito! Pelo jogador ${jogadorQueRespondeTruco.nome} do grupo ${jogadorQueRespondeTruco.grupo} aceitou o truco! A mão passa a valer $pontosTruco pontos.');
       break;
     case '2':
@@ -80,7 +81,7 @@ class Truco {
             case '3':
               print('O jogador ${jogadorQuePediuTruco.nome} recusou o truco! A equipe que pediu truco recebe um ponto e a mão.');
               pontosTruco = Truco.PONTOS_6;
-              jogadorQuePediuTruco.adicionarPontuacaoTotal(pontosTruco);
+              jogadorQuePediuTruco.adicionarPontuacaoTotalTruco(pontosTruco);
               break;
             default:
               print('Opção inválida.');
@@ -89,7 +90,7 @@ class Truco {
         case '3':
           print('O jogador ${jogadorQuePediuTruco.nome} recusou o truco! A equipe que pediu truco recebe um ponto e a mão.');
           pontosTruco = Truco.PONTOS_INICIAL;
-          jogadorQuePediuTruco.adicionarPontuacaoTotal(pontosTruco);
+          jogadorQuePediuTruco.adicionarPontuacaoTotalTruco(pontosTruco);
           break;
         default:
           print('Opção inválida.');
@@ -98,12 +99,13 @@ class Truco {
     case '3':
       print('O jogador ${jogadorQuePediuTruco.nome} recusou o truco! A equipe que pediu truco recebe um ponto e a mão.');
       pontosTruco = 1;
-      jogadorQuePediuTruco.adicionarPontuacaoTotal(pontosTruco);
+      jogadorQuePediuTruco.adicionarPontuacaoTotalTruco(pontosTruco);
       break;
     default:
       print('Opção inválida.');
   }
-  return Tuple3<Jogador, Jogador?, int>(jogadorQuePediuTruco, jogadorQueAceitouTruco, pontosTruco);
+    print('jogadorQuePediuTruco: ${jogadorQuePediuTruco}, jogadorQueAceitouTruco :${jogadorQueAceitouTruco}');
+   return Tuple3<Jogador, Jogador?, int>(jogadorQuePediuTruco, jogadorQueAceitouTruco, pontosTruco);
 }
 
 
@@ -127,12 +129,12 @@ class Truco {
       case '2':
         print('O jogador ${jogadorQueRespondeTruco.nome} recusou o 12! A equipe que pediu truco recebe um ponto e a mão.');
         pontosTruco = Truco.PONTOS_9;
-        jogadorQuePediuTruco.adicionarPontuacaoTotal(pontosTruco);
+        jogadorQuePediuTruco.adicionarPontuacaoTotalTruco(pontosTruco);
         break;
       default:
         print('Opção inválida.');
     }
   }
-
+  
 }
 
