@@ -126,6 +126,7 @@ class Jogo {
   List<Tuple2<Jogador, Map<String, dynamic>>> cartasJogadasNaMesa = [];
   int jogadorAtualIndex = 0;
   Jogador? jogadorVencedor; // Movida a declaração e inicialização aqui
+ 
 
   while (jogoContinua) {
     // Limpa a lista de cartas jogadas na mesa para cada rodada
@@ -141,23 +142,46 @@ class Jogo {
 
       jogador.obterCartaDaMao();
 
+
       Tuple3<Jogador, Jogador?, int>? infoAcao = jogador.acaoDoJogador(jogador, jogadores);
-      print('infoAcao: ${infoAcao}');
+
+          
       
       // Lógica para tratar a resposta do outro jogador ao truco, se houver
-      if (truco.trucoFoiAceito && jogador != truco.jogadorQuePediuTruco) {
-        print('if do truco aceito ${truco.trucoFoiAceito} e truco.jogadorQuePediuTruco ${truco.jogadorQuePediuTruco}');
+      if (infoAcao != null && infoAcao.item3 == -1) {
+        var jodadorpediu = infoAcao.item1;
+        //var jogadorQueRespondeTruco = infoAcao.item2;
+        //var pontostruco = infoAcao.item3;
+   
+
+       // print('\n\rif do truco aceito ${jodadorpediu.nome} e truco.jogadorQuePediuTruco ${truco.jogadorQueAceitouTruco}');
+      //  print('\n\rif Prontos${pontostruco}');
+
+        jogador = jodadorpediu;
+        jogador.obterCartaDaMao();
+
+        Tuple3<Jogador, Jogador?, int>? infocarta = jogador.selecionarCarta(jogador, jogadores);
+
+        var cartaSelecionada = infocarta?.item1;
+        var valorCarta = infocarta?.item3;
+       //print('11 rerorno truco: cartaSelecionada: ${cartaSelecionada} e valorCarta: ${valorCarta}');
         
-        jogador.selecionarCarta(jogador, jogadores);
-        // Lógica para tratar a resposta do outro jogador ao truco
-        // (já implementado anteriormente)
+        cartasJogadasNaMesa.add(Tuple2<Jogador, Map<String, dynamic>>(jogador, {
+          'carta': cartaSelecionada,
+          'valor': valorCarta,
+          'jogadorQueAceitouTruco': null,
+          'pontosTruco': 0,
+        }));
+
+
       }
     
 
-      // Lógica para tratar a carta jogada pelo jogador
+      // Lógica para tratar a jogo sem pedir truco
       if (infoAcao != null) {
         var cartaSelecionada = infoAcao.item1;
         var valorCarta = infoAcao.item3;
+        
         
         cartasJogadasNaMesa.add(Tuple2<Jogador, Map<String, dynamic>>(jogador, {
           'carta': cartaSelecionada,

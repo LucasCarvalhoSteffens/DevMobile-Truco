@@ -104,8 +104,11 @@ class Truco {
     default:
       print('Opção inválida.');
   }
-    print('jogadorQuePediuTruco: ${jogadorQuePediuTruco}, jogadorQueAceitouTruco :${jogadorQueAceitouTruco}');
-   return Tuple3<Jogador, Jogador?, int>(jogadorQuePediuTruco, jogadorQueAceitouTruco, pontosTruco);
+    print('jogadorQuePediuTruco: ${jogadorQuePediuTruco.nome}, jogadorQueAceitouTruco :${jogadorQueRespondeTruco.grupo} e pontos ${pontosTruco}');
+    
+  int trucoTrue = -1;
+  
+   return Tuple3<Jogador, Jogador?, int>(jogadorQuePediuTruco, jogadorQueRespondeTruco, trucoTrue);
 }
 
 

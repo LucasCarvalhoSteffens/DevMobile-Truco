@@ -34,44 +34,68 @@ class Jogador {
   }
 
   Tuple3<Jogador, Jogador?, int>? acaoDoJogador(Jogador jogador, List<Jogador> jogadores) {
-  stdout.write('O jogador ${jogador.nome}, do Grupo: ${jogador.grupo} escolha a carta que deseja jogar (índice), ou "T" para pedir truco: ');
-  String? input = stdin.readLineSync();
-  
-  if (input == null) {
-    print('Entrada inválida. Tente novamente.');
-    return null;
-  }
-
-  if (input.toUpperCase() == 'T') {
-        // Verifica se o truco já foi aceito
-        if (truco.trucoFoiAceito) {
-            print('Você já pediu truco e ele foi aceito. Não é possível realizar outra ação.');
-            return null;
-        }
-        return pedirTruco(jogador, jogadores);
+  while (true) {
+    stdout.write('O jogador ${jogador.nome}, do Grupo: ${jogador.grupo} escolha a carta que deseja jogar (índice), ou "T" para pedir truco: ');
+    String? input = stdin.readLineSync();
+    
+    if (input == null) {
+      print('Entrada inválida. Tente novamente.');
+      continue;
     }
 
-  int indice;
-  try {
-    indice = int.parse(input);
-  } catch (e) {
-    print('Entrada inválida. Tente novamente.');
-    return null;
+    if (input.toUpperCase() == 'T') {
+      // Verifica se o truco já foi aceito
+      if (truco.trucoFoiAceito) {
+          print('Você já pediu truco e ele foi aceito. Não é possível realizar outra ação.');
+          continue;
+      }
+      //CRIAR VALIDAÇÃO PARA NÃO PERMITIR PEDIR TRUCO SE JÁ FOI PEDIDO NA RODADA, SOMENTE AUMENTAR
+      // Chama o método pedirTruco e recebe o retorno
+      Tuple3<Jogador, Jogador?, int>? infoTruco = pedirTruco(jogador, jogadores);
+      
+      // Verifica se o retorno do método pedirTruco é diferente de null
+      if (infoTruco != null) {
+          print('infoTruco da função pedir truco: ${infoTruco}');
+          // Retorna apenas os elementos necessários da tupla retornada pelo pedirTruco
+          return infoTruco;
+      }
+      
+      // Retorna null caso o método pedirTruco retorne null
+      continue;
+      }
+
+      int indice;
+      try {
+        indice = int.parse(input);
+      } catch (e) {
+        print('Entrada inválida. Tente novamente.');
+        continue;
+      }
+
+      // Verifica se o índice é válido
+      if (indice < 1 || indice > jogador.mao.length) {
+        print('Índice inválido. Escolha um índice entre 1 e ${jogador.mao.length}.');
+        continue;
+      }
+
+      // Verifica se o índice já foi jogado
+      if (indice < 1 || indice > mao.length || indicesSelecionados.contains(indice - 1)) {
+        print('Este índice já foi jogado. Escolha um índice diferente.');
+        continue;
+      }
+
+      indicesSelecionados.add(indice - 1);
+      var cartaSelecionada = mao[indice - 1];
+      //jogador.mao.removeAt(indice - 1); // Remove a carta da mão do jogador
+      var valorCarta = cartaSelecionada.ehManilha ? cartaSelecionada.valorManilha : cartaSelecionada.valorToInt();
+
+      print('Ação do jogador: ${valorCarta}, carta selecionada: ${cartaSelecionada}');
+      // Retorna as informações sobre a carta selecionada
+      return Tuple3<Jogador, Jogador?, int>(jogador, null, valorCarta);
+    }
   }
 
-  if (indice >= 1 && indice <= jogador.mao.length) {
-    indicesSelecionados.add(indice - 1);
-    var cartaSelecionada = mao[indice - 1];
-    var valorCarta = cartaSelecionada.ehManilha ? cartaSelecionada.valorManilha : cartaSelecionada.valorToInt();
 
-    print('açãojogadorescolhacata: ${valorCarta} cartaSelecionada: ${cartaSelecionada}' );
-    // Retorna as informações sobre a carta selecionada
-    return Tuple3<Jogador, Jogador?, int>(jogador, null, valorCarta);
-  } else {
-    print('Opção inválida. Tente novamente.');
-    return null;
-  }
-}
 
 
 Tuple3<Jogador, Jogador?, int>? selecionarCarta(Jogador jogador, jogadores) {
@@ -93,10 +117,11 @@ Tuple3<Jogador, Jogador?, int>? selecionarCarta(Jogador jogador, jogadores) {
   var cartaSelecionada = mao[indice - 1];
   var valorCarta = cartaSelecionada.ehManilha ? cartaSelecionada.valorManilha : cartaSelecionada.valorToInt();
 
-  print('selecionarCarta: ${valorCarta}');
+  print('selecionarCarta: ${valorCarta} cartaSelecionada: ${cartaSelecionada}');
   // Retorna as informações em um mapa
 
   return Tuple3<Jogador, Jogador?, int>(jogador, null, valorCarta);
+  
 }
 
 
