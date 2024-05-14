@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.teste_cartas.app-mergeDebugResources-9:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.truco_view20.app-mergeDebugResources-9:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Roni Pereira\\Documents\\1_Truco\\teste_cartas\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\roni.pereira\\Documents\\CatolicaSC\\4_Semestre\\Desenvolvimento_Mobile\\Pac4-Truco\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

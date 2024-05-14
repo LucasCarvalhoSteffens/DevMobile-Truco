@@ -1,4 +1,4 @@
-com.example.teste_cartas
+com.example.truco_view20
 attr activityAction
 attr activityName
 attr alpha

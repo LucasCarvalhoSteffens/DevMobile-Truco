@@ -1,4 +1,4 @@
-#Tue Mar 19 23:16:28 BRT 2024
-base.0=C\:\\Users\\Roni Pereira\\Documents\\1_Truco\\teste_cartas\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Tue May 14 19:40:36 BRT 2024
+base.0=C\:\\Users\\roni.pereira\\Documents\\CatolicaSC\\4_Semestre\\Desenvolvimento_Mobile\\Pac4-Truco\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

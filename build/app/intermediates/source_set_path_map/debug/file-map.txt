@@ -1,12 +1,12 @@
-com.example.teste_cartas.app-jetified-window-1.0.0-beta04-0 C:\Users\Roni Pereira\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\res
-com.example.teste_cartas.app-jetified-window-java-1.0.0-beta04-1 C:\Users\Roni Pereira\.gradle\caches\transforms-3\142c24f2530665bb6deb4123ab140714\transformed\jetified-window-java-1.0.0-beta04\res
-com.example.teste_cartas.app-core-1.6.0-2 C:\Users\Roni Pereira\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\res
-com.example.teste_cartas.app-jetified-annotation-experimental-1.1.0-3 C:\Users\Roni Pereira\.gradle\caches\transforms-3\3f96ca76068ab400b494bc7d541ee256\transformed\jetified-annotation-experimental-1.1.0\res
-com.example.teste_cartas.app-debug-4 C:\Users\Roni Pereira\Documents\1_Truco\teste_cartas\android\app\src\debug\res
-com.example.teste_cartas.app-main-5 C:\Users\Roni Pereira\Documents\1_Truco\teste_cartas\android\app\src\main\res
-com.example.teste_cartas.app-pngs-6 C:\Users\Roni Pereira\Documents\1_Truco\teste_cartas\build\app\generated\res\pngs\debug
-com.example.teste_cartas.app-resValues-7 C:\Users\Roni Pereira\Documents\1_Truco\teste_cartas\build\app\generated\res\resValues\debug
-com.example.teste_cartas.app-rs-8 C:\Users\Roni Pereira\Documents\1_Truco\teste_cartas\build\app\generated\res\rs\debug
-com.example.teste_cartas.app-mergeDebugResources-9 C:\Users\Roni Pereira\Documents\1_Truco\teste_cartas\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.example.teste_cartas.app-mergeDebugResources-10 C:\Users\Roni Pereira\Documents\1_Truco\teste_cartas\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.example.teste_cartas.app-merged_res-11 C:\Users\Roni Pereira\Documents\1_Truco\teste_cartas\build\app\intermediates\merged_res\debug
+com.example.truco_view20.app-jetified-window-1.0.0-beta04-0 C:\Users\roni.pereira\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\res
+com.example.truco_view20.app-jetified-window-java-1.0.0-beta04-1 C:\Users\roni.pereira\.gradle\caches\transforms-3\142c24f2530665bb6deb4123ab140714\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.truco_view20.app-core-1.6.0-2 C:\Users\roni.pereira\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\res
+com.example.truco_view20.app-jetified-annotation-experimental-1.1.0-3 C:\Users\roni.pereira\.gradle\caches\transforms-3\3f96ca76068ab400b494bc7d541ee256\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.truco_view20.app-debug-4 C:\Users\roni.pereira\Documents\CatolicaSC\4_Semestre\Desenvolvimento_Mobile\Pac4-Truco\android\app\src\debug\res
+com.example.truco_view20.app-main-5 C:\Users\roni.pereira\Documents\CatolicaSC\4_Semestre\Desenvolvimento_Mobile\Pac4-Truco\android\app\src\main\res
+com.example.truco_view20.app-pngs-6 C:\Users\roni.pereira\Documents\CatolicaSC\4_Semestre\Desenvolvimento_Mobile\Pac4-Truco\build\app\generated\res\pngs\debug
+com.example.truco_view20.app-resValues-7 C:\Users\roni.pereira\Documents\CatolicaSC\4_Semestre\Desenvolvimento_Mobile\Pac4-Truco\build\app\generated\res\resValues\debug
+com.example.truco_view20.app-rs-8 C:\Users\roni.pereira\Documents\CatolicaSC\4_Semestre\Desenvolvimento_Mobile\Pac4-Truco\build\app\generated\res\rs\debug
+com.example.truco_view20.app-mergeDebugResources-9 C:\Users\roni.pereira\Documents\CatolicaSC\4_Semestre\Desenvolvimento_Mobile\Pac4-Truco\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.truco_view20.app-mergeDebugResources-10 C:\Users\roni.pereira\Documents\CatolicaSC\4_Semestre\Desenvolvimento_Mobile\Pac4-Truco\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.truco_view20.app-merged_res-11 C:\Users\roni.pereira\Documents\CatolicaSC\4_Semestre\Desenvolvimento_Mobile\Pac4-Truco\build\app\intermediates\merged_res\debug

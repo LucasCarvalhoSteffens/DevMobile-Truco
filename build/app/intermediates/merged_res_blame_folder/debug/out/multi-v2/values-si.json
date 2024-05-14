@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.teste_cartas.app-mergeDebugResources-9:/values-si/values-si.xml",
+            "outputFile": "com.example.truco_view20.app-mergeDebugResources-9:/values-si/values-si.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Roni Pereira\\.gradle\\caches\\transforms-3\\2579a7de00054bf46a8dbc332552f622\\transformed\\core-1.6.0\\res\\values-si\\values-si.xml",
+                    "source": "C:\\Users\\roni.pereira\\.gradle\\caches\\transforms-3\\2579a7de00054bf46a8dbc332552f622\\transformed\\core-1.6.0\\res\\values-si\\values-si.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
