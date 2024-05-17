@@ -89,12 +89,7 @@ class Jogo {
     }
   }
 
-  String? perguntarProximaRodada() {
-    // Pergunta ao jogador se deseja continuar para a próxima rodada
-    print('\nDeseja continuar para a próxima rodada? (S/N)');
-    String? continuar = stdin.readLineSync();
-    return continuar?.toUpperCase();
-  }
+
 
   void iniciarProximaRodada(List<Jogador> jogadores, Baralho baralho, int numeroJogadores, List<ResultadoRodada> resultadosRodadas) {
     // Limpa a lista de índices das cartas selecionadas para cada jogador
@@ -143,28 +138,30 @@ class Jogo {
       jogador.obterCartaDaMao();
 
 
-      Tuple3<Jogador, Jogador?, int>? infoAcao = jogador.acaoDoJogador(jogador, jogadores);
+      Tuple4<Jogador, Jogador?, int, int>? infoAcao = jogador.acaoDoJogador(jogador, jogadores);
 
           
       
       // Lógica para tratar a resposta do outro jogador ao truco, se houver
-      if (infoAcao != null && infoAcao.item3 == -1) {
+      if (infoAcao != null && infoAcao.item4 >= 3) {
         var jodadorpediu = infoAcao.item1;
-        //var jogadorQueRespondeTruco = infoAcao.item2;
-        //var pontostruco = infoAcao.item3;
+        var jogadorQueAceitouTruco = infoAcao.item2;
+        var pontostruco = infoAcao.item4;
+        var item3 = infoAcao.item3;
    
 
-       // print('\n\rif do truco aceito ${jodadorpediu.nome} e truco.jogadorQuePediuTruco ${truco.jogadorQueAceitouTruco}');
-      //  print('\n\rif Prontos${pontostruco}');
+        print('\n\rif do truco aceito ${jodadorpediu.nome} e truco.jogadorQuePediuTruco ${jogadorQueAceitouTruco}');
+        print('\n\rif Prontos${pontostruco}');
+        print('\n\rif item3: ${item3}');
 
         jogador = jodadorpediu;
         jogador.obterCartaDaMao();
 
-        Tuple3<Jogador, Jogador?, int>? infocarta = jogador.selecionarCarta(jogador, jogadores);
+        Tuple4<Jogador, Jogador?, int, int>? infocarta = jogador.selecionarCarta(jogador, jogadores);
 
         var cartaSelecionada = infocarta?.item1;
         var valorCarta = infocarta?.item3;
-       //print('11 rerorno truco: cartaSelecionada: ${cartaSelecionada} e valorCarta: ${valorCarta}');
+        print('11 rerorno truco: cartaSelecionada: ${cartaSelecionada} e valorCarta: ${valorCarta}');
         
         cartasJogadasNaMesa.add(Tuple2<Jogador, Map<String, dynamic>>(jogador, {
           'carta': cartaSelecionada,
@@ -172,16 +169,15 @@ class Jogo {
           'jogadorQueAceitouTruco': null,
           'pontosTruco': 0,
         }));
-
-
       }
     
 
       // Lógica para tratar a jogo sem pedir truco
-      if (infoAcao != null) {
+      if (infoAcao != null && infoAcao.item4 < 3) {
         var cartaSelecionada = infoAcao.item1;
         var valorCarta = infoAcao.item3;
-        
+        print('valorCarta: ${valorCarta}');
+        print('infoAcao: ${infoAcao}');
         
         cartasJogadasNaMesa.add(Tuple2<Jogador, Map<String, dynamic>>(jogador, {
           'carta': cartaSelecionada,
@@ -194,6 +190,7 @@ class Jogo {
 
     // Chama a função para comparar as cartas jogadas na mesa após cada jogador jogar
     jogadorVencedor = compararCartas(cartasJogadasNaMesa);
+    print('jogadorVencedor: ${jogadorVencedor}');
     if (jogadorVencedor != null) {
 
       print('\n\rGrupo ${jogadorVencedor.grupo} ganhou a rodada!');

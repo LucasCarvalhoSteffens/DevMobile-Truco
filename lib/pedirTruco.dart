@@ -15,7 +15,7 @@ class Truco {
   int pontosTruco = Truco.PONTOS_INICIAL;
   int jogadorPediutruco = 0;
 
-  Tuple3<Jogador, Jogador?, int>  pedirTruco(Jogador jogadorQuePediuTruco, Jogador jogadorQueRespondeTruco, List<Jogador> jogadores) {
+  Tuple4<Jogador, Jogador?, int, int>  pedirTruco(Jogador jogadorQuePediuTruco, Jogador jogadorQueRespondeTruco, List<Jogador> jogadores) {
   print('O jogador ${jogadorQuePediuTruco.nome} pediu truco!');
 
   // Mostra as opções para a equipe adversária
@@ -108,7 +108,7 @@ class Truco {
     
   int trucoTrue = -1;
   
-   return Tuple3<Jogador, Jogador?, int>(jogadorQuePediuTruco, jogadorQueRespondeTruco, trucoTrue);
+   return Tuple4<Jogador, Jogador?, int, int>(jogadorQuePediuTruco, jogadorQueRespondeTruco, 0, pontosTruco);
 }
 
 

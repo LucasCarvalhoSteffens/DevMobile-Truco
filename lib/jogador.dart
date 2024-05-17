@@ -12,10 +12,21 @@ class Jogador {
   int pontos = 0;
   int pontuacaoTotal = 0;
   int grupo;
+  int pontosTruco = 0;
   List<Carta> mesa = [];
   List<Tuple2<Jogador, Map<String, dynamic>>> cartasJogadasNaMesa = [];
 
   Jogador(this.nome, this.grupo);
+
+  // Método de fábrica para criar jogadores a partir de uma lista de nomes
+  static List<Jogador> criarJogadores(List<String> nomes, int numeroGrupos) {
+    List<Jogador> jogadores = [];
+    for (int i = 0; i < nomes.length; i++) {
+      int grupo = (i < numeroGrupos) ? 1 : 2;
+      jogadores.add(Jogador(nomes[i], grupo));
+    }
+    return jogadores;
+  }
 
   void obterCartaDaMao() {
     if (mao.isEmpty) {
@@ -33,7 +44,7 @@ class Jogador {
     }
   }
 
-  Tuple3<Jogador, Jogador?, int>? acaoDoJogador(Jogador jogador, List<Jogador> jogadores) {
+  Tuple4<Jogador, Jogador?, int, int>? acaoDoJogador(Jogador jogador, List<Jogador> jogadores) {
   while (true) {
     stdout.write('O jogador ${jogador.nome}, do Grupo: ${jogador.grupo} escolha a carta que deseja jogar (índice), ou "T" para pedir truco: ');
     String? input = stdin.readLineSync();
@@ -51,7 +62,7 @@ class Jogador {
       }
       //CRIAR VALIDAÇÃO PARA NÃO PERMITIR PEDIR TRUCO SE JÁ FOI PEDIDO NA RODADA, SOMENTE AUMENTAR
       // Chama o método pedirTruco e recebe o retorno
-      Tuple3<Jogador, Jogador?, int>? infoTruco = pedirTruco(jogador, jogadores);
+      Tuple4<Jogador, Jogador?, int, int>? infoTruco = pedirTruco(jogador, jogadores);
       
       // Verifica se o retorno do método pedirTruco é diferente de null
       if (infoTruco != null) {
@@ -86,19 +97,18 @@ class Jogador {
 
       indicesSelecionados.add(indice - 1);
       var cartaSelecionada = mao[indice - 1];
-      //jogador.mao.removeAt(indice - 1); // Remove a carta da mão do jogador
       var valorCarta = cartaSelecionada.ehManilha ? cartaSelecionada.valorManilha : cartaSelecionada.valorToInt();
 
       print('Ação do jogador: ${valorCarta}, carta selecionada: ${cartaSelecionada}');
       // Retorna as informações sobre a carta selecionada
-      return Tuple3<Jogador, Jogador?, int>(jogador, null, valorCarta);
+      return Tuple4<Jogador, Jogador?, int, int>(jogador, null, valorCarta, pontosTruco);
     }
   }
 
 
 
 
-Tuple3<Jogador, Jogador?, int>? selecionarCarta(Jogador jogador, jogadores) {
+Tuple4<Jogador, Jogador?, int, int>? selecionarCarta(Jogador jogador, jogadores) {
   stdout.write('Jogador $nome, do Grupo: $grupo selecione a carta que deseja jogar (índice): ');
   String? input = stdin.readLineSync();
   int indice;
@@ -109,7 +119,7 @@ Tuple3<Jogador, Jogador?, int>? selecionarCarta(Jogador jogador, jogadores) {
     return null;
   }
   if (indice < 1 || indice > jogador.mao.length || jogador.indicesSelecionados.contains(indice - 1)) {
-    print('Índice inválido ou carta já jogada! Escolha um índice válido.');
+    print('12345 Índice inválido ou carta já jogada! Escolha um índice válido.');
     return null;
   }
 
@@ -120,13 +130,13 @@ Tuple3<Jogador, Jogador?, int>? selecionarCarta(Jogador jogador, jogadores) {
   print('selecionarCarta: ${valorCarta} cartaSelecionada: ${cartaSelecionada}');
   // Retorna as informações em um mapa
 
-  return Tuple3<Jogador, Jogador?, int>(jogador, null, valorCarta);
+  return Tuple4<Jogador, Jogador?, int, int>(jogador, null, valorCarta, pontosTruco);
   
 }
 
 
 
-Tuple3<Jogador, Jogador?, int>? pedirTruco(Jogador jogador, List<Jogador> jogadores) {
+Tuple4<Jogador, Jogador?, int, int>? pedirTruco(Jogador jogador, List<Jogador> jogadores) {
   // Determina qual jogador está pedindo truco e qual está respondendo
   Jogador jogadorQuePediuTruco = jogador;
   Jogador jogadorQueRespondeTruco = jogadores.firstWhere((element) => element != jogadorQuePediuTruco);

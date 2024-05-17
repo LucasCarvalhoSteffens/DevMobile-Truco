@@ -6,29 +6,25 @@ import 'jogador.dart';
 import 'jogo.dart';
 
 void main() {
-  List<List<Jogador>> gruposDeJogadores = [];
 
-  // Pergunta ao usuário quantos jogadores deseja
+  List<String> nomesDosJogadores = obterNomesDosJogadores(); // Função que obtem os nomes dos jogadores
   int? numeroJogadores = obterNumeroJogadores();
   print('Número de jogadores selecionado: $numeroJogadores');
+  int numeroGrupos = (numeroJogadores / 2).toInt();
+
+  // Pergunta ao usuário quantos jogadores deseja
+  
 
   // Cria o baralho
   Baralho baralho = Baralho();
 
   Jogo jogo = Jogo();
 
-  // Criando os jogadores
-  List<Jogador> jogadores = [];
-  int numeroGrupos = (numeroJogadores! / 2).toInt(); // Definindo o número de grupos
+  // Cria os jogadores
+  List<Jogador> jogadores = Jogador.criarJogadores(nomesDosJogadores, numeroGrupos);
 
-    // Criando os jogadores e agrupando conforme a lógica especificada
-    for (int i = 1; i <= numeroJogadores; i++) {
-    int grupo = (i <= numeroGrupos) ? 1 : 2; // Determina o grupo do jogador
-    Jogador jogador = Jogador('$i', grupo);
-    jogadores.add(jogador);
-  }
-
-  // Agrupa os jogadores conforme a lógica especificada
+  // Agrupa os jogadores
+  List<List<Jogador>> gruposDeJogadores = [];
   for (int i = 0; i < numeroGrupos; i++) {
     gruposDeJogadores.add([
       jogadores[i],
@@ -42,4 +38,10 @@ void main() {
   // Chamando a função iniciarJogo
   jogo.iniciarJogo(jogadores, numeroJogadores,  gruposDeJogadores);
   
+}
+
+// Função para obter os nomes dos jogadores
+List<String> obterNomesDosJogadores() {
+  // Implemente a lógica para obter os nomes dos jogadores (ex: via console ou entrada do usuário)
+  return ['Jogador1', 'Jogador2'];
 }
