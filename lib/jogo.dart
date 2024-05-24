@@ -190,15 +190,15 @@ class Jogo {
 
     // Chama a função para comparar as cartas jogadas na mesa após cada jogador jogar
     jogadorVencedor = compararCartas(cartasJogadasNaMesa);
-    print('jogadorVencedor: ${jogadorVencedor}');
-    if (jogadorVencedor != null) {
+      print('jogadorVencedor: ${jogadorVencedor}');
+      if (jogadorVencedor != null) {
 
-      print('\n\rGrupo ${jogadorVencedor.grupo} ganhou a rodada!');
-      // Limpa a lista de cartas jogadas na mesa após determinar o vencedor da rodada
-      cartasJogadasNaMesa.clear();
-    } else {
-      print('\n\rEmpate! Ninguém ganhou a rodada $numeroRodada.');
-    }
+        print('\n\rGrupo ${jogadorVencedor.grupo} ganhou a rodada!');
+        // Limpa a lista de cartas jogadas na mesa após determinar o vencedor da rodada
+        cartasJogadasNaMesa.clear();
+      } else {
+        print('\n\rEmpate! Ninguém ganhou a rodada $numeroRodada.');
+      }
 
     // Adiciona o resultado da rodada atual à lista de resultados
     resultadosRodadas.add(ResultadoRodada(numeroRodada, jogadorVencedor));

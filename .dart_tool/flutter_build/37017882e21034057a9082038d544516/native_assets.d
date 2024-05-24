@@ -1,0 +1,1 @@
+ C:\\Users\\roni.pereira\\Documents\\CatolicaSC\\4_Semestre\\Desenvolvimento_Mobile\\Pac4-Truco\\.dart_tool\\flutter_build\\37017882e21034057a9082038d544516\\native_assets.yaml: 
