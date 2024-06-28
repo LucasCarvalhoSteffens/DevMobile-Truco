@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.truco_view20.app-mergeDebugResources-9:/values-v16/values-v16.xml",
+            "outputFile": "com.example.truco_view20.app-mergeDebugResources-18:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\roni.pereira\\.gradle\\caches\\transforms-3\\2579a7de00054bf46a8dbc332552f622\\transformed\\core-1.6.0\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Roni Pereira\\.gradle\\caches\\transforms-3\\5f50fb23ed7197a4adf457105f423f59\\transformed\\core-1.9.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

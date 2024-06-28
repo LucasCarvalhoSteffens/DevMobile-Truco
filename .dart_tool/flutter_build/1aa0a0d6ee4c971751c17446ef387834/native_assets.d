@@ -1,0 +1,1 @@
+ C:\\Users\\Roni\ Pereira\\Documents\\CatolicaSC\\4semestre\\mobile\\testes_truco_view\\.dart_tool\\flutter_build\\1aa0a0d6ee4c971751c17446ef387834\\native_assets.yaml: 

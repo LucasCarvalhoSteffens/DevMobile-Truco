@@ -1,47 +1,25 @@
-import 'package:tuple/tuple.dart';
-import 'valorCarta.dart';
-import 'baralho.dart'; 
-import 'consoles.dart';
-import 'jogador.dart';
-import 'jogo.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import '../widgets/playernameform.dart';
+import '../interface_user/room_selection_screen.dart';
 
-void main() {
-
-  List<String> nomesDosJogadores = obterNomesDosJogadores(); // Função que obtem os nomes dos jogadores
-  int? numeroJogadores = obterNumeroJogadores();
-  print('Número de jogadores selecionado: $numeroJogadores');
-  int numeroGrupos = (numeroJogadores / 2).toInt();
-
-  // Pergunta ao usuário quantos jogadores deseja
-  
-
-  // Cria o baralho
-  Baralho baralho = Baralho();
-
-  Jogo jogo = Jogo();
-
-  // Cria os jogadores
-  List<Jogador> jogadores = Jogador.criarJogadores(nomesDosJogadores, numeroGrupos);
-
-  // Agrupa os jogadores
-  List<List<Jogador>> gruposDeJogadores = [];
-  for (int i = 0; i < numeroGrupos; i++) {
-    gruposDeJogadores.add([
-      jogadores[i],
-      jogadores[i + numeroGrupos],
-    ]);
-  }
-
-    // Chamando o método para finalizar a rodada e distribuir novas cartas no início do jogo e ao final de cada rodada
-  jogo.finalizarRodada(jogadores, baralho, numeroJogadores);
-
-  // Chamando a função iniciarJogo
-  jogo.iniciarJogo(jogadores, numeroJogadores,  gruposDeJogadores);
-  
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
-// Função para obter os nomes dos jogadores
-List<String> obterNomesDosJogadores() {
-  // Implemente a lógica para obter os nomes dos jogadores (ex: via console ou entrada do usuário)
-  return ['Jogador1', 'Jogador2'];
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'TRUCO ROYALE',
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+      ),
+      home: const RoomSelectionScreen(),
+    );
+  }
 }

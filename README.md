@@ -1,4 +1,4 @@
-# Truco
+# truco_view20
 
 A new Flutter project.
 
